@@ -13,25 +13,55 @@ export interface PrayerTimes {
   date: string;
 }
 
-// Map city names to their respective IDs or coordinates that the API understands
-// This is a simplified example - in a real app, you'd have a complete mapping
-const CITY_MAPPINGS: Record<string, { latitude: number; longitude: number }> = {
-  "Semarang": { latitude: -7.0051453, longitude: 110.4381254 },
-  "Surakarta": { latitude: -7.5591122, longitude: 110.8291434 },
-  "Yogyakarta": { latitude: -7.7955798, longitude: 110.3694896 },
-  "Pekalongan": { latitude: -6.8898362, longitude: 109.6745916 },
-  "Salatiga": { latitude: -7.3305234, longitude: 110.5084366 },
-  "Tegal": { latitude: -6.8797041, longitude: 109.1255917 },
-  "Magelang": { latitude: -7.4797342, longitude: 110.2176941 },
-  // Add coordinates for other cities...
+// Approximate coordinates for all regions in Central Java
+// In a production app, these would be more precise
+const REGION_COORDINATES: Record<string, { latitude: number; longitude: number }> = {
+  // Kabupaten
+  "Kabupaten Banjarnegara": { latitude: -7.3971, longitude: 109.6915 },
+  "Kabupaten Banyumas": { latitude: -7.5031, longitude: 109.2031 },
+  "Kabupaten Batang": { latitude: -7.0392, longitude: 109.8894 },
+  "Kabupaten Blora": { latitude: -7.0122, longitude: 111.3799 },
+  "Kabupaten Boyolali": { latitude: -7.5316, longitude: 110.5969 },
+  "Kabupaten Brebes": { latitude: -6.8725, longitude: 109.0428 },
+  "Kabupaten Cilacap": { latitude: -7.7257, longitude: 109.0118 },
+  "Kabupaten Demak": { latitude: -6.8944, longitude: 110.6384 },
+  "Kabupaten Grobogan": { latitude: -7.0135, longitude: 110.9177 },
+  "Kabupaten Jepara": { latitude: -6.5827, longitude: 110.6677 },
+  "Kabupaten Karanganyar": { latitude: -7.5981, longitude: 111.0453 },
+  "Kabupaten Kebumen": { latitude: -7.6681, longitude: 109.6526 },
+  "Kabupaten Kendal": { latitude: -7.0264, longitude: 110.1879 },
+  "Kabupaten Klaten": { latitude: -7.7022, longitude: 110.6031 },
+  "Kabupaten Kudus": { latitude: -6.8102, longitude: 110.8418 },
+  "Kabupaten Magelang": { latitude: -7.4305, longitude: 110.2832 },
+  "Kabupaten Pati": { latitude: -6.7559, longitude: 111.0389 },
+  "Kabupaten Pekalongan": { latitude: -7.0317, longitude: 109.6242 },
+  "Kabupaten Pemalang": { latitude: -6.8881, longitude: 109.3784 },
+  "Kabupaten Purbalingga": { latitude: -7.3892, longitude: 109.3759 },
+  "Kabupaten Purworejo": { latitude: -7.7132, longitude: 110.0079 },
+  "Kabupaten Rembang": { latitude: -6.8082, longitude: 111.4277 },
+  "Kabupaten Semarang": { latitude: -7.2001, longitude: 110.4399 },
+  "Kabupaten Sragen": { latitude: -7.4278, longitude: 111.0091 },
+  "Kabupaten Sukoharjo": { latitude: -7.6484, longitude: 110.8559 },
+  "Kabupaten Tegal": { latitude: -6.8637, longitude: 109.1058 },
+  "Kabupaten Temanggung": { latitude: -7.3156, longitude: 110.1742 },
+  "Kabupaten Wonogiri": { latitude: -7.8138, longitude: 110.9231 },
+  "Kabupaten Wonosobo": { latitude: -7.3632, longitude: 109.9005 },
+  
+  // Kota
+  "Kota Magelang": { latitude: -7.4797, longitude: 110.2177 },
+  "Kota Pekalongan": { latitude: -6.8898, longitude: 109.6746 },
+  "Kota Salatiga": { latitude: -7.3305, longitude: 110.5084 },
+  "Kota Semarang": { latitude: -7.0051, longitude: 110.4381 },
+  "Kota Surakarta": { latitude: -7.5591, longitude: 110.8291 },
+  "Kota Tegal": { latitude: -6.8797, longitude: 109.1256 },
 };
 
-// Default to Semarang if city not found
-const DEFAULT_COORDS = { latitude: -7.0051453, longitude: 110.4381254 };
+// Default to Kota Semarang if region not found
+const DEFAULT_COORDS = { latitude: -7.0051, longitude: 110.4381 };
 
-export async function fetchPrayerTimes(city: string, date: Date = new Date()): Promise<PrayerTimes | null> {
+export async function fetchPrayerTimes(region: string, date: Date = new Date()): Promise<PrayerTimes | null> {
   try {
-    const coords = CITY_MAPPINGS[city] || DEFAULT_COORDS;
+    const coords = REGION_COORDINATES[region] || DEFAULT_COORDS;
     const formattedDate = format(date, 'dd-MM-yyyy');
     
     // Using the Aladhan API for prayer times
