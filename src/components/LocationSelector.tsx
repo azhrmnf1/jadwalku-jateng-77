@@ -72,22 +72,22 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({ onChange }) => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto mb-6 animate-slide-up">
       <Select value={selectedRegion} onValueChange={handleRegionChange}>
-        <SelectTrigger className="w-full bg-white text-foreground border-blue-100">
+        <SelectTrigger className="w-full bg-white dark:bg-gray-800 text-foreground border-blue-100 dark:border-gray-700">
           <SelectValue placeholder="Pilih wilayah" />
         </SelectTrigger>
-        <SelectContent className="max-h-80">
+        <SelectContent className="max-h-80 bg-white dark:bg-gray-800 border dark:border-gray-700">
           <SelectGroup>
-            <SelectLabel className="font-semibold text-primary">Kabupaten</SelectLabel>
+            <SelectLabel className="font-semibold text-primary dark:text-blue-400">Kabupaten</SelectLabel>
             {JATENG_REGIONS.kabupaten.sort().map((name) => (
-              <SelectItem key={`kabupaten-${name}`} value={`Kabupaten ${name}`}>
+              <SelectItem key={`kabupaten-${name}`} value={`Kabupaten ${name}`} className="text-foreground dark:text-white">
                 Kabupaten {name}
               </SelectItem>
             ))}
           </SelectGroup>
           <SelectGroup>
-            <SelectLabel className="font-semibold text-primary">Kota</SelectLabel>
+            <SelectLabel className="font-semibold text-primary dark:text-blue-400">Kota</SelectLabel>
             {JATENG_REGIONS.kota.sort().map((name) => (
-              <SelectItem key={`kota-${name}`} value={`Kota ${name}`}>
+              <SelectItem key={`kota-${name}`} value={`Kota ${name}`} className="text-foreground dark:text-white">
                 Kota {name}
               </SelectItem>
             ))}
